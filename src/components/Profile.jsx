@@ -1,70 +1,122 @@
-import { User, MapPin, Heart, Code } from 'lucide-react';
+import { User, MapPin, Heart, Code, Mail, ExternalLink } from 'lucide-react';
 
 export default function Profile() {
   return (
-    <div className="max-w-2xl mx-auto py-12 px-4">
-      {/* Profile Header */}
-      <div className="text-center mb-12 animate-fade-in">
-        <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-br from-purple-400 to-blue-500 flex items-center justify-center shadow-xl">
-          <User className="w-16 h-16 text-white" />
-        </div>
-        <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-2">
-          Your Name
-        </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-300">
-          한 줄 소개를 입력하세요
-        </p>
-      </div>
-
-      {/* Info Cards */}
-      <div className="space-y-6">
-        {/* Basic Info Card */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-          <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-            <User className="w-5 h-5 text-purple-500" />
-            기본 정보
-          </h2>
-          <ul className="space-y-3 text-gray-600 dark:text-gray-300">
-            <li className="flex items-center gap-2">
-              <span className="font-medium">나이:</span> ?
-            </li>
-            <li className="flex items-center gap-2">
-              <MapPin className="w-4 h-4" />
-              <span className="font-medium">위치:</span> ?
-            </li>
-          </ul>
-        </div>
-
-        {/* Tech Stack Card */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-          <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-            <Code className="w-5 h-5 text-blue-500" />
-            기술 스택
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {['React', 'JavaScript', 'HTML', 'CSS'].map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium"
-              >
-                {tech}
-              </span>
-            ))}
+    <div className="min-h-screen w-full flex items-center justify-center py-20 px-4">
+      <div className="w-full max-w-3xl">
+        {/* Profile Header - Centered */}
+        <div className="text-center mb-16">
+          <div className="relative inline-block mb-8">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 rounded-full blur-2xl opacity-40 animate-pulse"></div>
+            <div className="relative w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center shadow-2xl ring-4 ring-white/20 dark:ring-gray-800/50">
+              <User className="w-20 h-20 text-white" />
+            </div>
+          </div>
+          
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500 bg-clip-text text-transparent mb-4 tracking-tight">
+            Your Name
+          </h1>
+          <p className="text-xl text-gray-500 dark:text-gray-400 font-light">
+            한 줄 소개를 입력하세요
+          </p>
+          
+          {/* Social Links */}
+          <div className="flex justify-center gap-4 mt-6">
+            <a href="#" className="p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <Mail className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+            </a>
+            <a href="#" className="p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <ExternalLink className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+            </a>
           </div>
         </div>
 
-        {/* Hobbies Card */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-          <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-            <Heart className="w-5 h-5 text-pink-500" />
-            취미
-          </h2>
-          <ul className="space-y-2 text-gray-600 dark:text-gray-300">
-            <li>• 취미 1</li>
-            <li>• 취미 2</li>
-            <li>• 취미 3</li>
-          </ul>
+        {/* Info Cards - Grid Layout */}
+        <div className="grid gap-6">
+          {/* Basic Info Card */}
+          <div className="group relative overflow-hidden rounded-3xl bg-white dark:bg-gray-800 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="relative p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2 rounded-xl bg-purple-100 dark:bg-purple-900/30">
+                  <User className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                </div>
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
+                  기본 정보
+                </h2>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
+                  <span className="text-sm text-gray-500 dark:text-gray-400">나이</span>
+                  <p className="text-xl font-semibold text-gray-800 dark:text-white">?</p>
+                </div>
+                <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
+                  <span className="text-sm text-gray-500 dark:text-gray-400">위치</span>
+                  <p className="text-xl font-semibold text-gray-800 dark:text-white flex items-center gap-1">
+                    <MapPin className="w-4 h-4" /> ?
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Tech Stack Card */}
+          <div className="group relative overflow-hidden rounded-3xl bg-white dark:bg-gray-800 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="relative p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2 rounded-xl bg-blue-100 dark:bg-blue-900/30">
+                  <Code className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                </div>
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
+                  기술 스택
+                </h2>
+              </div>
+              
+              <div className="flex flex-wrap gap-3">
+                {['React', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'Node.js', 'Git'].map((tech, index) => (
+                  <span
+                    key={tech}
+                    className="px-4 py-2 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-700 dark:to-gray-600 text-gray-700 dark:text-gray-200 rounded-full font-medium shadow-sm hover:shadow-md hover:scale-105 transition-all duration-300"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Hobbies Card */}
+          <div className="group relative overflow-hidden rounded-3xl bg-white dark:bg-gray-800 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+            <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 to-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="relative p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2 rounded-xl bg-pink-100 dark:bg-pink-900/30">
+                  <Heart className="w-6 h-6 text-pink-600 dark:text-pink-400" />
+                </div>
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
+                  취미
+                </h2>
+              </div>
+              
+              <div className="grid grid-cols-3 gap-4">
+                {['취미 1', '취미 2', '취미 3'].map((hobby) => (
+                  <div key={hobby} className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
+                    <Heart className="w-6 h-6 mx-auto mb-2 text-pink-400" />
+                    <span className="text-gray-700 dark:text-gray-200 font-medium">{hobby}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
+
+        {/* Footer */}
+        <p className="text-center text-gray-400 dark:text-gray-500 mt-16 text-sm">
+          © 2026 MyInfo. All rights reserved.
+        </p>
       </div>
     </div>
   );
