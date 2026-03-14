@@ -1,16 +1,37 @@
-# React + Vite
+# MyInfo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> 나만의 정보를 보여주는 개인 포트폴리오 웹사이트
 
-Currently, two official plugins are available:
+## 기술 스택
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React** - UI 프레임워크
+- **Vite** - 빌드 도구
+- **Tailwind CSS** - 스타일링
+- **Lucide React** - 아이콘
 
-## React Compiler
+## 기능
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 다크모드 지원 (우측 상단 토글)
+- 깔끔하고 예쁜 UI 디자인
+- 프로필 섹션 (기본 정보, 기술 스택, 취미)
 
-## Expanding the ESLint configuration
+## 시작하기
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+# 의존성 설치
+npm install
+
+# 개발 서버 실행
+npm run dev
+
+# 빌드
+npm run build
+```
+
+## 변경 이력 (Changelog)
+
+### 2026-03-15
+- [+] 프로젝트 초기 설정 완료 (Vite + React + Tailwind)
+- [+] 다크모드 토글 기능 추가
+- [+] 프로필 컴포넌트 기본 구조 구현
+- [+] Git 초기화 및 첫 커밋
