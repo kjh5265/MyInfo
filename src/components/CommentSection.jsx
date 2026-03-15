@@ -165,10 +165,10 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
       <div className="flex justify-center mt-6">
         <button 
           onClick={() => {
-            if (!getNickname()) {
-              setShowNicknameModal(true);
-            } else {
+            if (isAdmin || getNickname()) {
               setShowChatModal(true);
+            } else {
+              setShowNicknameModal(true);
             }
           }}
           className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-medium hover:shadow-lg transition-all"
