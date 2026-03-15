@@ -92,7 +92,7 @@ export default function Profile({ isAdmin = false }) {
                   <User className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
-                  기본 정보
+                  소개
                 </h2>
               </div>
               
@@ -107,7 +107,9 @@ export default function Profile({ isAdmin = false }) {
                 </div>
                 <div className="p-2 sm:p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50 cursor-pointer hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors" onClick={() => setShowMbtiModal(true)}>
                   <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">MBTI</span>
-                  <p className="text-base sm:text-xl font-semibold text-gray-800 dark:text-white">INTJ</p>
+                  <p className="text-base sm:text-xl font-semibold text-gray-800 dark:text-white flex items-center gap-1">
+                    INTJ <span className="text-xs text-purple-500">✨</span>
+                  </p>
                 </div>
               </div>
             </div>
@@ -130,9 +132,12 @@ export default function Profile({ isAdmin = false }) {
                 {interests.map((item, index) => (
                   <div 
                     key={index} 
-                    className={`flex flex-col items-center justify-center p-2 sm:p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50 ${item.label === '강아지' ? 'hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer' : ''}`}
+                    className={`flex flex-col items-center justify-center p-2 sm:p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50 ${item.label === '강아지' ? 'hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer relative' : ''}`}
                     onClick={() => item.label === '강아지' && setShowDogModal(true)}
                   >
+                    {item.label === '강아지' && (
+                      <span className="absolute top-1 right-1 text-xs">✨</span>
+                    )}
                     <span className="text-2xl sm:text-3xl mb-1 sm:mb-2">{item.emoji}</span>
                     <span className="text-gray-700 dark:text-gray-200 font-medium text-xs sm:text-sm">{item.label}</span>
                   </div>
