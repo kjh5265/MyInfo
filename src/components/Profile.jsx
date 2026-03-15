@@ -1,6 +1,10 @@
-import { User, MapPin, Heart, Mail, ExternalLink, Play, Tv, Film, Trophy, Dumbbell } from 'lucide-react';
+import { User, MapPin, Heart, Mail, ExternalLink, Play, Tv, Film, Trophy, Dumbbell, Utensils } from 'lucide-react';
+import { useState } from 'react';
 
 export default function Profile() {
+  const [showLikedFood, setShowLikedFood] = useState(false);
+  const [showDislikedFood, setShowDislikedFood] = useState(false);
+
   return (
     <div className="min-h-screen w-full flex items-center justify-center py-20 px-4">
       <div className="w-full max-w-3xl">
@@ -45,6 +49,10 @@ export default function Profile() {
               </div>
               
               <div className="grid grid-cols-3 gap-4">
+                <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
+                  <span className="text-sm text-gray-500 dark:text-gray-400">나이</span>
+                  <p className="text-xl font-semibold text-gray-800 dark:text-white">95년생</p>
+                </div>
                 <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
                   <span className="text-sm text-gray-500 dark:text-gray-400">위치</span>
                   <p className="text-xl font-semibold text-gray-800 dark:text-white flex items-center gap-1">
@@ -111,7 +119,7 @@ export default function Profile() {
             <div className="relative p-8">
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-2 rounded-xl bg-amber-100 dark:bg-amber-900/30">
-                  <span className="text-xl">🍽️</span>
+                  <Utensils className="w-6 h-6 text-amber-600 dark:text-amber-400" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
                   음식
@@ -119,13 +127,29 @@ export default function Profile() {
               </div>
               
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 rounded-2xl bg-green-50 dark:bg-green-900/20">
-                  <span className="text-sm text-green-600 dark:text-green-400 font-medium">좋아하는 음식</span>
-                  <p className="text-lg text-gray-800 dark:text-white mt-1">고기, 회</p>
+                <div 
+                  className="p-4 rounded-2xl bg-green-50 dark:bg-green-900/20 cursor-pointer hover:opacity-80 transition-opacity"
+                  onClick={() => setShowLikedFood(!showLikedFood)}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-green-600 dark:text-green-400 font-medium">좋아하는 음식</span>
+                    <span className="text-green-600 dark:text-green-400">{showLikedFood ? '▲' : '▼'}</span>
+                  </div>
+                  {showLikedFood && (
+                    <p className="text-lg text-gray-800 dark:text-white mt-2">고기, 회</p>
+                  )}
                 </div>
-                <div className="p-4 rounded-2xl bg-red-50 dark:bg-red-900/20">
-                  <span className="text-sm text-red-600 dark:text-red-400 font-medium">안 먹는 음식</span>
-                  <p className="text-lg text-gray-800 dark:text-white mt-1">해삼, 멍게류</p>
+                <div 
+                  className="p-4 rounded-2xl bg-red-50 dark:bg-red-900/20 cursor-pointer hover:opacity-80 transition-opacity"
+                  onClick={() => setShowDislikedFood(!showDislikedFood)}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-red-600 dark:text-red-400 font-medium">안 먹는 음식</span>
+                    <span className="text-red-600 dark:text-red-400">{showDislikedFood ? '▲' : '▼'}</span>
+                  </div>
+                  {showDislikedFood && (
+                    <p className="text-lg text-gray-800 dark:text-white mt-2">해삼, 멍게류</p>
+                  )}
                 </div>
               </div>
             </div>
