@@ -1,5 +1,5 @@
 import { User, MapPin, Heart, Mail, Instagram, Utensils, X } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export default function Profile() {
   const [showLikedFood, setShowLikedFood] = useState(false);
@@ -8,11 +8,20 @@ export default function Profile() {
   const [showMbtiModal, setShowMbtiModal] = useState(false);
   const [showDogModal, setShowDogModal] = useState(false);
   const [profileIndex, setProfileIndex] = useState(0);
+  const longPressTimer = useRef(null);
   
   const profilePhotos = ['/myPic.jpg', '/myProfile2.png'];
 
-  const handleProfileLongPress = () => {
-    setProfileIndex((prev) => (prev + 1) % profilePhotos.length);
+  const handleProfilePressStart = () => {
+    longPressTimer.current = setTimeout(() => {
+      setProfileIndex((prev) => (prev + 1) % profilePhotos.length);
+    }, 2000);
+  };
+
+  const handleProfilePressEnd = () => {
+    if (longPressTimer.current) {
+      clearTimeout(longPressTimer.current);
+    }
   };
 
   const mbtiTraits = [
@@ -42,9 +51,13 @@ export default function Profile() {
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 rounded-full blur-2xl opacity-40 animate-pulse"></div>
             {/* 프로필 사진 */}
             <div 
-              className="relative w-40 h-40 mx-auto rounded-full overflow-hidden shadow-2xl ring-4 ring-white/20 dark:ring-gray-800/50 cursor-pointer select-none"
-              onClick={handleProfileLongPress}
-              title="길게 누르면 사진 변경"
+              className="relative w-40 h-40 mx-auto rounded-full overflow-hidden shadow-2xl ring-4 ring-white/20 dark:ring-gray-800/50 select-none"
+              onMouseDown={handleProfilePressStart}
+              onMouseUp={handleProfilePressEnd}
+              onMouseLeave={handleProfilePressEnd}
+              onTouchStart={handleProfilePressStart}
+              onTouchEnd={handleProfilePressEnd}
+              title="2초 이상 누르면 사진 변경"
             >
               <img src={profilePhotos[profileIndex]} alt="프로필" className="w-full h-full object-cover" />
             </div>
