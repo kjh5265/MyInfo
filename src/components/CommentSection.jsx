@@ -9,7 +9,9 @@ import {
   limit,
   deleteDoc,
   doc,
-  getDocs
+  getDocs,
+  where,
+  updateDoc
 } from 'firebase/firestore';
 import { MessageCircle, Send, X, Trash2, User } from 'lucide-react';
 
@@ -55,6 +57,7 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
   useEffect(() => {
     const q = query(
       collection(db, 'comments', 'food', 'items'),
+      where('disabled', '==', false),
       orderBy('createdAt', 'asc'),
       limit(100)
     );
@@ -90,6 +93,7 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
       userId: userId,
       authorName: authorName,
       isAdmin: isAdmin,
+      disabled: false,
       createdAt: new Date().toISOString()
     });
 
@@ -155,7 +159,7 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
     }
   };
 
-  // Clear chat (admin only) - delete from Firestore
+  // Clear chat (admin only) - disable messages in Firestore (keep data)
   const handleClearChat = async () => {
     if (!isAdmin) return;
     
@@ -164,9 +168,11 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
         const q = query(collection(db, 'comments', 'food', 'items'));
         const snapshot = await getDocs(q);
         
-        // Delete all messages
-        const deletePromises = snapshot.docs.map(doc => deleteDoc(doc.ref));
-        await Promise.all(deletePromises);
+        // Disable all messages instead of deleting
+        const disablePromises = snapshot.docs.map(docRef => 
+          updateDoc(doc(db, 'comments', 'food', 'items', docRef.id), { disabled: true })
+        );
+        await Promise.all(disablePromises);
         
         setComments([]);
       } catch (error) {
