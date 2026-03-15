@@ -52,6 +52,55 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
     return uniqueIds.indexOf(userId) + 1;
   };
 
+  // Rate limiting: Check if user can send message
+  const canSendMessage = () => {
+    const userId = getUserId();
+    const now = Date.now();
+    const fiveMinutesAgo = now - 5 * 60 * 1000; // 5분 전
+    const oneDayAgo = now - 24 * 60 * 60 * 1000; // 1일 전
+    
+    // Get message history from localStorage
+    const messageHistory = JSON.parse(localStorage.getItem('messageHistory') || '{}');
+    const userHistory = messageHistory[userId] || [];
+    
+    // Filter messages from last 5 minutes
+    const recentMessages = userHistory.filter(t => t > fiveMinutesAgo);
+    
+    // Filter messages from last 24 hours (for daily limit)
+    const todayMessages = userHistory.filter(t => t > oneDayAgo);
+    
+    // Check 5분 20개 제한
+    if (recentMessages.length >= 20) {
+      alert('5분 내에 너무 많은 메시지를 보냈습니다. 나중에 다시 시도해주세요.');
+      return false;
+    }
+    
+    // Check 하루 100개 제한
+    if (todayMessages.length >= 100) {
+      alert('오늘 이미 100개의 메시지를 보냈습니다. 내일 다시 이용해주세요.');
+      return false;
+    }
+    
+    return true;
+  };
+
+  // Save message timestamp
+  const saveMessageTimestamp = () => {
+    const userId = getUserId();
+    const now = Date.now();
+    const oneDayAgo = now - 24 * 60 * 60 * 1000;
+    
+    const messageHistory = JSON.parse(localStorage.getItem('messageHistory') || '{}');
+    let userHistory = messageHistory[userId] || [];
+    
+    // Keep only last 24 hours of history
+    userHistory = userHistory.filter(t => t > oneDayAgo);
+    userHistory.push(now);
+    
+    messageHistory[userId] = userHistory;
+    localStorage.setItem('messageHistory', JSON.stringify(messageHistory));
+  };
+
   // Load comments from Firestore
   useEffect(() => {
     const q = query(
@@ -84,6 +133,15 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
     e.preventDefault();
     if (!newComment.trim()) return;
 
+    // Check message length (max 20 characters)
+    if (newComment.trim().length > 20) {
+      alert('메시지는 20자 이하로 입력해주세요.');
+      return;
+    }
+
+    // Check rate limit (skip for admin)
+    if (!isAdmin && !canSendMessage()) return;
+
     const userId = getUserId();
     const nickname = getNickname();
     const authorNum = getAuthorCount(userId);
@@ -97,6 +155,11 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
       disabled: false,
       createdAt: new Date().toISOString()
     });
+
+    // Save timestamp for rate limiting (skip for admin)
+    if (!isAdmin) {
+      saveMessageTimestamp();
+    }
 
     setNewComment("");
     
@@ -387,6 +450,7 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
                   placeholder={isAdmin ? "재현님 채팅 입력..." : "채팅 입력..."}
+                  maxLength={20}
                   className="flex-1 px-3 sm:px-4 py-2 rounded-full border dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm sm:text-base"
                 />
                 <button 
