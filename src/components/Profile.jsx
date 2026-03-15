@@ -1,5 +1,6 @@
 import { User, MapPin, Heart, Mail, Instagram, Utensils, X } from 'lucide-react';
 import { useState, useRef } from 'react';
+import CommentSection from './CommentSection';
 
 export default function Profile() {
   const [showLikedFood, setShowLikedFood] = useState(false);
@@ -193,6 +194,9 @@ export default function Profile() {
               </div>
             </div>
           </div>
+
+          {/* Comment Section */}
+          <CommentSection />
         </div>
 
         {/* MBTI Modal */}
