@@ -446,14 +446,19 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
             <form onSubmit={handleSubmit} className="flex-shrink-0 p-3 sm:p-4 border-t dark:border-gray-700">
               <div className="flex gap-2 items-center">
                 <input
-                  type="text"
                   value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
+                  onChange={(e) => {
+                    if (e.target.value.length <= 20) {
+                      setNewComment(e.target.value);
+                    }
+                  }}
                   placeholder={isAdmin ? "재현님 채팅 입력..." : "채팅 입력..."}
-                  maxLength={20}
                   className="flex-1 px-3 sm:px-4 py-2 rounded-full border dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm sm:text-base"
                 />
-                <button 
+                <span className="text-xs text-gray-400 dark:text-gray-500">
+                  {newComment.length}/20
+                </span>
+                <button
                   type="submit"
                   className="p-2 sm:p-3 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition-colors flex-shrink-0"
                 >
