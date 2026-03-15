@@ -90,7 +90,7 @@ export default function Profile() {
                   <span className="text-gray-700 dark:text-gray-200 font-medium">영화</span>
                 </div>
                 <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
-                  <Trophy className="w-6 h-6 mx-auto mb-2 text-pink-400" />
+                  <span className="text-3xl">🏃</span>
                   <span className="text-gray-700 dark:text-gray-200 font-medium">탁구</span>
                 </div>
               </div>
