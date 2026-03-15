@@ -46,8 +46,8 @@ function App() {
   // Pass admin status to Profile
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-all duration-500 pt-16 sm:pt-20">
-      {/* Header with DarkModeToggle and Admin - Fixed at top */}
-      <div className="fixed top-0 right-0 left-0 z-50 flex justify-end items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
+      {/* Header with DarkModeToggle and Admin - Fixed on desktop, static on mobile */}
+      <div className="fixed sm:fixed top-0 right-0 left-0 z-50 flex justify-end items-center gap-2 sm:gap-3 p-3 sm:p-4 sm:bg-transparent">
         {/* Admin Login Button - shown when not admin */}
         {!isAdmin && (
           <button
