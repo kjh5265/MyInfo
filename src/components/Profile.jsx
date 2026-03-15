@@ -75,10 +75,8 @@ export default function Profile() {
                   <p className="text-xl font-semibold text-gray-800 dark:text-white">95년생</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
-                  <span className="text-sm text-gray-500 dark:text-gray-400">사는곳</span>
-                  <p className="text-xl font-semibold text-gray-800 dark:text-white flex items-center gap-1">
-                    <MapPin className="w-4 h-4" />사당
-                  </p>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">사는곳/회사</span>
+                  <p className="text-xl font-semibold text-gray-800 dark:text-white">사당/강남</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50 cursor-pointer hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors" onClick={() => setShowMbtiModal(true)}>
                   <span className="text-sm text-gray-500 dark:text-gray-400">MBTI</span>
