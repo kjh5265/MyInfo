@@ -1,10 +1,19 @@
-import { User, MapPin, Heart, Mail, ExternalLink, Utensils } from 'lucide-react';
+import { User, MapPin, Heart, Mail, ExternalLink, Utensils, X } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Profile() {
   const [showLikedFood, setShowLikedFood] = useState(false);
   const [showDislikedFood, setShowDislikedFood] = useState(false);
   const [showDrinks, setShowDrinks] = useState(false);
+  const [showMbtiModal, setShowMbtiModal] = useState(false);
+
+  const mbtiTraits = [
+    "전략적 사고, 장기적인 시각",
+    "논리적이고 분석적",
+    "독립성 선호, 완벽주의",
+    "깊이 있는 대화 선호",
+    "겉으로는 차갑지만 속은 따뜻함",
+  ];
 
   const interests = [
     { emoji: '📺', label: '유튜브' },
@@ -71,7 +80,7 @@ export default function Profile() {
                     <MapPin className="w-4 h-4" />사당
                   </p>
                 </div>
-                <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
+                <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50 cursor-pointer hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors" onClick={() => setShowMbtiModal(true)}>
                   <span className="text-sm text-gray-500 dark:text-gray-400">MBTI</span>
                   <p className="text-xl font-semibold text-gray-800 dark:text-white">INTJ</p>
                 </div>
@@ -157,6 +166,28 @@ export default function Profile() {
             </div>
           </div>
         </div>
+
+        {/* MBTI Modal */}
+        {showMbtiModal && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowMbtiModal(false)}>
+            <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 w-full max-w-sm relative" onClick={(e) => e.stopPropagation()}>
+              <button 
+                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                onClick={() => setShowMbtiModal(false)}
+              >
+                <X className="w-6 h-6" />
+              </button>
+              <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 text-center">INTJ</h3>
+              <div className="space-y-3">
+                {mbtiTraits.map((trait, index) => (
+                  <div key={index} className="p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50">
+                    <p className="text-gray-700 dark:text-gray-200">{trait}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Footer */}
         <p className="text-center text-gray-400 dark:text-gray-500 mt-16 text-sm">
