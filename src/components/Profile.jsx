@@ -63,8 +63,8 @@ export default function Profile() {
             </div>
           </div>
           
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500 bg-clip-text text-transparent mb-4 tracking-tight">
-            반갑습니다! 김재현입니다
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500 bg-clip-text text-transparent mb-4 tracking-tight text-center leading-tight">
+            반갑습니다!<br className="sm:hidden" /> 김재현입니다
           </h1>
           
           {/* Social Links */}
@@ -83,7 +83,7 @@ export default function Profile() {
           {/* Basic Info Card */}
           <div className="group relative overflow-hidden rounded-3xl bg-white dark:bg-gray-800 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="relative p-8">
+            <div className="relative p-4 sm:p-8">
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-2 rounded-xl bg-purple-100 dark:bg-purple-900/30">
                   <User className="w-6 h-6 text-purple-600 dark:text-purple-400" />
@@ -93,18 +93,18 @@ export default function Profile() {
                 </h2>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
-                  <span className="text-sm text-gray-500 dark:text-gray-400">나이</span>
-                  <p className="text-xl font-semibold text-gray-800 dark:text-white">95년생</p>
+              <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                <div className="p-2 sm:p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
+                  <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">나이</span>
+                  <p className="text-base sm:text-xl font-semibold text-gray-800 dark:text-white">95년생</p>
                 </div>
                 <div className="p-2 sm:p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
                   <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">사는곳/회사</span>
-                  <p className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white">사당/강남</p>
+                  <p className="text-base sm:text-lg font-semibold text-gray-800 dark:text-white">사당/강남</p>
                 </div>
-                <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50 cursor-pointer hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors" onClick={() => setShowMbtiModal(true)}>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">MBTI</span>
-                  <p className="text-xl font-semibold text-gray-800 dark:text-white">INTJ</p>
+                <div className="p-2 sm:p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50 cursor-pointer hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors" onClick={() => setShowMbtiModal(true)}>
+                  <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">MBTI</span>
+                  <p className="text-base sm:text-xl font-semibold text-gray-800 dark:text-white">INTJ</p>
                 </div>
               </div>
             </div>
@@ -113,7 +113,7 @@ export default function Profile() {
           {/* Interests Card */}
           <div className="group relative overflow-hidden rounded-3xl bg-white dark:bg-gray-800 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
             <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 to-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="relative p-8">
+            <div className="relative p-4 sm:p-8">
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-2 rounded-xl bg-pink-100 dark:bg-pink-900/30">
                   <Heart className="w-6 h-6 text-pink-600 dark:text-pink-400" />
@@ -123,15 +123,15 @@ export default function Profile() {
                 </h2>
               </div>
               
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div className="grid grid-cols-4 gap-2 sm:gap-4">
                 {interests.map((item, index) => (
                   <div 
                     key={index} 
-                    className={`flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50 ${item.label === '강아지' ? 'hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer' : ''}`}
+                    className={`flex flex-col items-center justify-center p-2 sm:p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50 ${item.label === '강아지' ? 'hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer' : ''}`}
                     onClick={() => item.label === '강아지' && setShowDogModal(true)}
                   >
-                    <span className="text-3xl mb-2">{item.emoji}</span>
-                    <span className="text-gray-700 dark:text-gray-200 font-medium text-sm">{item.label}</span>
+                    <span className="text-2xl sm:text-3xl mb-1 sm:mb-2">{item.emoji}</span>
+                    <span className="text-gray-700 dark:text-gray-200 font-medium text-xs sm:text-sm">{item.label}</span>
                   </div>
                 ))}
               </div>
@@ -141,7 +141,7 @@ export default function Profile() {
           {/* Food Card */}
           <div className="group relative overflow-hidden rounded-3xl bg-white dark:bg-gray-800 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
             <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="relative p-8">
+            <div className="relative p-4 sm:p-8">
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-2 rounded-xl bg-amber-100 dark:bg-amber-900/30">
                   <Utensils className="w-6 h-6 text-amber-600 dark:text-amber-400" />
@@ -151,37 +151,37 @@ export default function Profile() {
                 </h2>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
                 <div 
-                  className="p-4 rounded-2xl bg-green-50 dark:bg-green-900/20 cursor-pointer hover:opacity-80 transition-opacity"
+                  className="p-3 sm:p-4 rounded-2xl bg-green-50 dark:bg-green-900/20 cursor-pointer hover:opacity-80 transition-opacity"
                   onClick={() => setShowLikedFood(!showLikedFood)}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-green-600 dark:text-green-400 font-medium">좋아하는 음식</span>
+                    <span className="text-xs sm:text-sm text-green-600 dark:text-green-400 font-medium">좋아하는 음식</span>
                     <span className="text-green-600 dark:text-green-400">{showLikedFood ? '▲' : '▼'}</span>
                   </div>
                   {showLikedFood && (
-                    <p className="text-lg text-gray-800 dark:text-white mt-2">고기, 회 포함 전부</p>
+                    <p className="text-base sm:text-lg text-gray-800 dark:text-white mt-1 sm:mt-2">고기, 회 포함 전부</p>
                   )}
                 </div>
                 <div 
-                  className="p-4 rounded-2xl bg-red-50 dark:bg-red-900/20 cursor-pointer hover:opacity-80 transition-opacity"
+                  className="p-3 sm:p-4 rounded-2xl bg-red-50 dark:bg-red-900/20 cursor-pointer hover:opacity-80 transition-opacity"
                   onClick={() => setShowDislikedFood(!showDislikedFood)}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-red-600 dark:text-red-400 font-medium">안 먹는 음식</span>
+                    <span className="text-xs sm:text-sm text-red-600 dark:text-red-400 font-medium">안 먹는 음식</span>
                     <span className="text-red-600 dark:text-red-400">{showDislikedFood ? '▲' : '▼'}</span>
                   </div>
                   {showDislikedFood && (
-                    <p className="text-lg text-gray-800 dark:text-white mt-2">해삼, 멍게류</p>
+                    <p className="text-base sm:text-lg text-gray-800 dark:text-white mt-1 sm:mt-2">해삼, 멍게류</p>
                   )}
                 </div>
                 <div 
-                  className="p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/20 cursor-pointer hover:opacity-80 transition-opacity"
+                  className="p-3 sm:p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/20 cursor-pointer hover:opacity-80 transition-opacity"
                   onClick={() => setShowDrinks(!showDrinks)}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-blue-600 dark:text-blue-400 font-medium">주량</span>
+                    <span className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 font-medium">주량</span>
                     <span className="text-blue-600 dark:text-blue-400">{showDrinks ? '▲' : '▼'}</span>
                   </div>
                   {showDrinks && (
