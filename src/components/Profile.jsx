@@ -15,7 +15,7 @@ export default function Profile() {
   const handleProfilePressStart = () => {
     longPressTimer.current = setTimeout(() => {
       setProfileIndex((prev) => (prev + 1) % profilePhotos.length);
-    }, 2000);
+    }, 3000);
   };
 
   const handleProfilePressEnd = () => {
@@ -57,13 +57,13 @@ export default function Profile() {
               onMouseLeave={handleProfilePressEnd}
               onTouchStart={handleProfilePressStart}
               onTouchEnd={handleProfilePressEnd}
-              title="2초 이상 누르면 사진 변경"
+              title="3초 이상 누르면 사진 변경"
             >
               <img src={profilePhotos[profileIndex]} alt="프로필" className="w-full h-full object-cover" />
             </div>
           </div>
           
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500 bg-clip-text text-transparent mb-4 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500 bg-clip-text text-transparent mb-4 tracking-tight">
             반갑습니다! 김재현입니다
           </h1>
           
@@ -93,14 +93,14 @@ export default function Profile() {
                 </h2>
               </div>
               
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
                   <span className="text-sm text-gray-500 dark:text-gray-400">나이</span>
                   <p className="text-xl font-semibold text-gray-800 dark:text-white">95년생</p>
                 </div>
-                <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
-                  <span className="text-sm text-gray-500 dark:text-gray-400">사는곳 / 회사</span>
-                  <p className="text-xl font-semibold text-gray-800 dark:text-white">사당 / 강남</p>
+                <div className="p-2 sm:p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
+                  <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">사는곳/회사</span>
+                  <p className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white">사당/강남</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50 cursor-pointer hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors" onClick={() => setShowMbtiModal(true)}>
                   <span className="text-sm text-gray-500 dark:text-gray-400">MBTI</span>
@@ -123,7 +123,7 @@ export default function Profile() {
                 </h2>
               </div>
               
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {interests.map((item, index) => (
                   <div 
                     key={index} 
@@ -151,7 +151,7 @@ export default function Profile() {
                 </h2>
               </div>
               
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div 
                   className="p-4 rounded-2xl bg-green-50 dark:bg-green-900/20 cursor-pointer hover:opacity-80 transition-opacity"
                   onClick={() => setShowLikedFood(!showLikedFood)}
