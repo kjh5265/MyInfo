@@ -80,16 +80,37 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
     const userId = getUserId();
     const nickname = getNickname();
     const authorNum = getAuthorCount(userId);
+    const authorName = isAdmin ? '재현' : (nickname || `작성자${authorNum}`);
 
     await addDoc(collection(db, 'comments', 'food', 'items'), {
       content: newComment.trim(),
       userId: userId,
-      authorName: isAdmin ? '재현' : (nickname || `작성자${authorNum}`),
+      authorName: authorName,
       isAdmin: isAdmin,
       createdAt: new Date().toISOString()
     });
 
     setNewComment("");
+    
+    // Send Telegram notification (only for non-admin messages)
+    if (!isAdmin) {
+      const TELEGRAM_TOKEN = '8234168902:AAErlAX-JoJxBBLk5SNvkykKgEyb3R4mCY8';
+      const CHAT_ID = '7600441724';
+      const message = `💬 새 메시지!\n\n작성자: ${authorName}\n내용: ${newComment.trim()}`;
+      
+      try {
+        await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text: message,
+          })
+        });
+      } catch (error) {
+        console.log('Telegram notification failed:', error);
+      }
+    }
     
     // Scroll to bottom after sending
     setTimeout(() => {
