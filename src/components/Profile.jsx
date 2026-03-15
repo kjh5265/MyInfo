@@ -176,7 +176,7 @@ export default function Profile() {
               >
                 <X className="w-6 h-6" />
               </button>
-              <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 text-center">INTJ</h3>
+              <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 text-center">INTJ 특징</h3>
               <div className="space-y-3">
                 {mbtiTraits.map((trait, index) => (
                   <div key={index} className="p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50">
