@@ -6,6 +6,7 @@ export default function Profile() {
   const [showDislikedFood, setShowDislikedFood] = useState(false);
   const [showDrinks, setShowDrinks] = useState(false);
   const [showMbtiModal, setShowMbtiModal] = useState(false);
+  const [showDogModal, setShowDogModal] = useState(false);
 
   const mbtiTraits = [
     "전략적 사고, 장기적인 시각",
@@ -102,7 +103,11 @@ export default function Profile() {
               
               <div className="grid grid-cols-4 gap-4">
                 {interests.map((item, index) => (
-                  <div key={index} className="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
+                  <div 
+                    key={index} 
+                    className="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer"
+                    onClick={() => item.label === '강아지' && setShowDogModal(true)}
+                  >
                     <span className="text-3xl mb-2">{item.emoji}</span>
                     <span className="text-gray-700 dark:text-gray-200 font-medium text-sm">{item.label}</span>
                   </div>
@@ -183,6 +188,24 @@ export default function Profile() {
                     <p className="text-gray-700 dark:text-gray-200">{trait}</p>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Dog Modal */}
+        {showDogModal && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowDogModal(false)}>
+            <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 w-full max-w-sm relative" onClick={(e) => e.stopPropagation()}>
+              <button 
+                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                onClick={() => setShowDogModal(false)}
+              >
+                <X className="w-6 h-6" />
+              </button>
+              <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 text-center">토토</h3>
+              <div className="rounded-xl overflow-hidden">
+                <img src="/toto.jpg" alt="토토" className="w-full h-auto" />
               </div>
             </div>
           </div>
