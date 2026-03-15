@@ -29,9 +29,6 @@ export default function LockScreen({ onUnlock }) {
             <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
               비밀번호
             </h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-2">
-              오늘의 날짜 (MMDD)
-            </p>
           </div>
 
           <form onSubmit={handleSubmit}>
@@ -42,7 +39,6 @@ export default function LockScreen({ onUnlock }) {
                 setPassword(e.target.value);
                 setError(false);
               }}
-              placeholder="예: 0315"
               maxLength={4}
               className="w-full px-6 py-4 text-center text-2xl font-bold bg-gray-100 dark:bg-gray-700 rounded-2xl focus:outline-none focus:ring-4 focus:ring-purple-500/30 text-gray-800 dark:text-white"
             />

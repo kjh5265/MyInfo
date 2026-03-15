@@ -1,4 +1,4 @@
-import { User, MapPin, Heart, Mail, ExternalLink } from 'lucide-react';
+import { User, MapPin, Heart, Mail, ExternalLink, Play, Tv, Film, Trophy } from 'lucide-react';
 
 export default function Profile() {
   return (
@@ -8,18 +8,15 @@ export default function Profile() {
         <div className="text-center mb-16">
           <div className="relative inline-block mb-8">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 rounded-full blur-2xl opacity-40 animate-pulse"></div>
-            {/* 프로필 사진 영역 - 나중에 사진 추가 가능 */}
-            <div className="relative w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center shadow-2xl ring-4 ring-white/20 dark:ring-gray-800/50 overflow-hidden">
-              <User className="w-20 h-20 text-white" />
+            {/* 프로필 사진 */}
+            <div className="relative w-40 h-40 mx-auto rounded-full overflow-hidden shadow-2xl ring-4 ring-white/20 dark:ring-gray-800/50">
+              <img src="/myPic.jpg" alt="프로필" className="w-full h-full object-cover" />
             </div>
           </div>
           
           <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500 bg-clip-text text-transparent mb-4 tracking-tight">
             김재현
           </h1>
-          <p className="text-xl text-gray-500 dark:text-gray-400 font-light">
-            개발자를 꿈꾸는的大学生
-          </p>
           
           {/* Social Links */}
           <div className="flex justify-center gap-4 mt-6">
@@ -55,7 +52,7 @@ export default function Profile() {
                 <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
                   <span className="text-sm text-gray-500 dark:text-gray-400">위치</span>
                   <p className="text-xl font-semibold text-gray-800 dark:text-white flex items-center gap-1">
-                    <MapPin className="w-4 h-4" />사는곳
+                    <MapPin className="w-4 h-4" />사당
                   </p>
                 </div>
                 <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
@@ -80,12 +77,22 @@ export default function Profile() {
               </div>
               
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {['유튜브', '넷플릭스', '영화', '탁구'].map((hobby) => (
-                  <div key={hobby} className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
-                    <Heart className="w-6 h-6 mx-auto mb-2 text-pink-400" />
-                    <span className="text-gray-700 dark:text-gray-200 font-medium">{hobby}</span>
-                  </div>
-                ))}
+                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
+                  <Play className="w-6 h-6 mx-auto mb-2 text-pink-400" />
+                  <span className="text-gray-700 dark:text-gray-200 font-medium">유튜브</span>
+                </div>
+                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
+                  <Tv className="w-6 h-6 mx-auto mb-2 text-pink-400" />
+                  <span className="text-gray-700 dark:text-gray-200 font-medium">넷플릭스</span>
+                </div>
+                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
+                  <Film className="w-6 h-6 mx-auto mb-2 text-pink-400" />
+                  <span className="text-gray-700 dark:text-gray-200 font-medium">영화</span>
+                </div>
+                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
+                  <Trophy className="w-6 h-6 mx-auto mb-2 text-pink-400" />
+                  <span className="text-gray-700 dark:text-gray-200 font-medium">탁구</span>
+                </div>
               </div>
             </div>
           </div>
