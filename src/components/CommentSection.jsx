@@ -326,18 +326,19 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
                         <div 
                           className={`flex ${isRight ? 'justify-end' : 'justify-start'}`}
                         >
-                        <div 
-                          className={`max-w-[75%] p-3 rounded-2xl ${
-                            comment.isAdmin 
-                              ? 'bg-purple-500 text-white' 
-                              : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white'
-                          }`}
-                        >
-                          <p className="text-xs font-medium mb-1 opacity-70">{comment.authorName}</p>
-                          <p className="text-sm break-words">{comment.content}</p>
-                          <p className={`text-xs mt-1 opacity-50 ${isRight ? 'text-right' : ''}`}>
-                            {formatTime(comment.createdAt)}
-                          </p>
+                          <div 
+                            className={`max-w-[75%] p-3 rounded-2xl ${
+                              comment.isAdmin 
+                                ? 'bg-purple-500 text-white' 
+                                : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white'
+                            }`}
+                          >
+                            <p className="text-xs font-medium mb-1 opacity-70">{comment.authorName}</p>
+                            <p className="text-sm break-words">{comment.content}</p>
+                            <p className={`text-xs mt-1 opacity-50 ${isRight ? 'text-right' : ''}`}>
+                              {formatTime(comment.createdAt)}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     );
