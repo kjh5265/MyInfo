@@ -1,4 +1,4 @@
-import { User, MapPin, Heart, Mail, ExternalLink, Utensils, X } from 'lucide-react';
+import { User, MapPin, Heart, Mail, Instagram, Utensils, X } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Profile() {
@@ -49,7 +49,7 @@ export default function Profile() {
               <Mail className="w-5 h-5 text-gray-700 dark:text-gray-300" />
             </a>
             <a href="https://instagram.com/jaehyyunn" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-              <ExternalLink className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+              <Instagram className="w-5 h-5 text-gray-700 dark:text-gray-300" />
             </a>
           </div>
         </div>
