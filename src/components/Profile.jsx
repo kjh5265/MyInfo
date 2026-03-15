@@ -1,96 +1,142 @@
-function Profile() {
+import { User, MapPin, Heart, Mail, ExternalLink, Play, Tv, Film, Trophy, Dumbbell } from 'lucide-react';
+
+export default function Profile() {
   return (
-    <div className="max-w-2xl mx-auto pt-20 px-6">
-      <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden">
-        {/* Profile Header */}
-        <div className="relative h-32 bg-gradient-to-r from-purple-500 to-pink-500">
-          <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2">
-            <div className="w-24 h-24 bg-white dark:bg-gray-700 rounded-full p-1">
-              <div className="w-full h-full bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-4xl">
-                👤
-              </div>
+    <div className="min-h-screen w-full flex items-center justify-center py-20 px-4">
+      <div className="w-full max-w-3xl">
+        {/* Profile Header - Centered */}
+        <div className="text-center mb-16">
+          <div className="relative inline-block mb-8">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 rounded-full blur-2xl opacity-40 animate-pulse"></div>
+            {/* 프로필 사진 */}
+            <div className="relative w-40 h-40 mx-auto rounded-full overflow-hidden shadow-2xl ring-4 ring-white/20 dark:ring-gray-800/50">
+              <img src="/myPic.jpg" alt="프로필" className="w-full h-full object-cover" />
             </div>
           </div>
-        </div>
-
-        {/* Profile Content */}
-        <div className="pt-16 pb-8 px-8">
-          <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-2">
+          
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500 bg-clip-text text-transparent mb-4 tracking-tight">
             김재현
           </h1>
           
-          <div className="flex flex-wrap justify-center gap-3 mb-6">
-            <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full text-sm font-medium">
-              📍 사당
-            </span>
-            <span className="px-3 py-1 bg-pink-100 dark:bg-pink-900 text-pink-700 dark:text-pink-300 rounded-full text-sm font-medium">
-              INTJ
-            </span>
-          </div>
-
-          {/* Contact */}
-          <div className="flex justify-center gap-6 mb-8">
-            <a 
-              href="mailto:kjhkjh5265@naver.com"
-              className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
-            >
-              <span>✉️</span>
-              <span>kjhkjh5265@naver.com</span>
+          {/* Social Links */}
+          <div className="flex justify-center gap-4 mt-6">
+            <a href="mailto:kjhkjh5265@naver.com" className="p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <Mail className="w-5 h-5 text-gray-700 dark:text-gray-300" />
             </a>
-            <a 
-              href="https://instagram.com/jaehyyunn"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
-            >
-              <span>📷</span>
-              <span>@jaehyyunn</span>
+            <a href="https://instagram.com/jaehyyunn" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <ExternalLink className="w-5 h-5 text-gray-700 dark:text-gray-300" />
             </a>
           </div>
+        </div>
 
-          {/* Interests */}
-          <div className="mb-6">
-            <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-3 flex items-center gap-2">
-              🎯 관심
-            </h2>
-            <div className="flex flex-wrap gap-2">
-              {['유튜브', '넷플릭스', '영화', '탁구', '게임', '강아지', '일본'].map((interest, index) => (
-                <span 
-                  key={index}
-                  className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg text-sm"
-                >
-                  {interest}
-                </span>
-              ))}
+        {/* Info Cards - Grid Layout */}
+        <div className="grid gap-6">
+          {/* Basic Info Card */}
+          <div className="group relative overflow-hidden rounded-3xl bg-white dark:bg-gray-800 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="relative p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2 rounded-xl bg-purple-100 dark:bg-purple-900/30">
+                  <User className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                </div>
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
+                  기본 정보
+                </h2>
+              </div>
+              
+              <div className="grid grid-cols-3 gap-4">
+                <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
+                  <span className="text-sm text-gray-500 dark:text-gray-400">위치</span>
+                  <p className="text-xl font-semibold text-gray-800 dark:text-white flex items-center gap-1">
+                    <MapPin className="w-4 h-4" />사당
+                  </p>
+                </div>
+                <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
+                  <span className="text-sm text-gray-500 dark:text-gray-400">MBTI</span>
+                  <p className="text-xl font-semibold text-gray-800 dark:text-white">INTJ</p>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Food */}
-          <div>
-            <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-3 flex items-center gap-2">
-              🍽️ 음식
-            </h2>
-            <div className="space-y-3">
-              <div className="flex items-start gap-2">
-                <span className="text-green-500">✅</span>
-                <div>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">좋아하는 음식</span>
-                  <p className="text-gray-700 dark:text-gray-200">고기, 회</p>
+          {/* Interests Card */}
+          <div className="group relative overflow-hidden rounded-3xl bg-white dark:bg-gray-800 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+            <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 to-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="relative p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2 rounded-xl bg-pink-100 dark:bg-pink-900/30">
+                  <Heart className="w-6 h-6 text-pink-600 dark:text-pink-400" />
+                </div>
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
+                  관심
+                </h2>
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
+                  <Play className="w-6 h-6 mx-auto mb-2 text-pink-400" />
+                  <span className="text-gray-700 dark:text-gray-200 font-medium">유튜브</span>
+                </div>
+                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
+                  <Tv className="w-6 h-6 mx-auto mb-2 text-pink-400" />
+                  <span className="text-gray-700 dark:text-gray-200 font-medium">넷플릭스</span>
+                </div>
+                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
+                  <Film className="w-6 h-6 mx-auto mb-2 text-pink-400" />
+                  <span className="text-gray-700 dark:text-gray-200 font-medium">영화</span>
+                </div>
+                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
+                  <Trophy className="w-6 h-6 mx-auto mb-2 text-pink-400" />
+                  <span className="text-gray-700 dark:text-gray-200 font-medium">탁구</span>
+                </div>
+                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
+                  <Dumbbell className="w-6 h-6 mx-auto mb-2 text-pink-400" />
+                  <span className="text-gray-700 dark:text-gray-200 font-medium">게임</span>
+                </div>
+                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
+                  <span className="text-2xl">🐕</span>
+                  <span className="text-gray-700 dark:text-gray-200 font-medium">강아지</span>
+                </div>
+                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
+                  <span className="text-2xl">🇯🇵</span>
+                  <span className="text-gray-700 dark:text-gray-200 font-medium">일본</span>
                 </div>
               </div>
-              <div className="flex items-start gap-2">
-                <span className="text-red-500">❌</span>
-                <div>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">안 먹는 음식</span>
-                  <p className="text-gray-700 dark:text-gray-200">해삼, 멍게류</p>
+            </div>
+          </div>
+
+          {/* Food Card */}
+          <div className="group relative overflow-hidden rounded-3xl bg-white dark:bg-gray-800 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+            <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="relative p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2 rounded-xl bg-amber-100 dark:bg-amber-900/30">
+                  <span className="text-xl">🍽️</span>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
+                  음식
+                </h2>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 rounded-2xl bg-green-50 dark:bg-green-900/20">
+                  <span className="text-sm text-green-600 dark:text-green-400 font-medium">좋아하는 음식</span>
+                  <p className="text-lg text-gray-800 dark:text-white mt-1">고기, 회</p>
+                </div>
+                <div className="p-4 rounded-2xl bg-red-50 dark:bg-red-900/20">
+                  <span className="text-sm text-red-600 dark:text-red-400 font-medium">안 먹는 음식</span>
+                  <p className="text-lg text-gray-800 dark:text-white mt-1">해삼, 멍게류</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Footer */}
+        <p className="text-center text-gray-400 dark:text-gray-500 mt-16 text-sm">
+          © 2026 MyInfo. All rights reserved.
+        </p>
       </div>
     </div>
-  )
+  );
 }
-
-export default Profile
