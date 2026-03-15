@@ -116,7 +116,7 @@ export default function Profile() {
                 </h2>
               </div>
               
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-3 gap-4">
                 <div 
                   className="p-4 rounded-2xl bg-green-50 dark:bg-green-900/20 cursor-pointer hover:opacity-80 transition-opacity"
                   onClick={() => setShowLikedFood(!showLikedFood)}
@@ -142,7 +142,7 @@ export default function Profile() {
                   )}
                 </div>
                 <div 
-                  className="p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/20 cursor-pointer hover:opacity-80 transition-opacity col-span-2"
+                  className="p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/20 cursor-pointer hover:opacity-80 transition-opacity"
                   onClick={() => setShowDrinks(!showDrinks)}
                 >
                   <div className="flex items-center justify-between">
