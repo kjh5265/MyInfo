@@ -1,9 +1,19 @@
-import { User, MapPin, Heart, Mail, ExternalLink, Play, Tv, Film, Trophy, Dumbbell, Utensils, Bird, Globe } from 'lucide-react';
+import { User, MapPin, Heart, Mail, ExternalLink, Utensils } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Profile() {
   const [showLikedFood, setShowLikedFood] = useState(false);
   const [showDislikedFood, setShowDislikedFood] = useState(false);
+
+  const interests = [
+    { emoji: '📺', label: '유튜브' },
+    { emoji: '🎬', label: '넷플릭스' },
+    { emoji: '🎥', label: '영화' },
+    { emoji: '🏓', label: '탁구' },
+    { emoji: '🎮', label: '게임' },
+    { emoji: '🐕', label: '강아지' },
+    { emoji: '🇯🇵', label: '일본' },
+  ];
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center py-20 px-4">
@@ -80,35 +90,13 @@ export default function Profile() {
                 </h2>
               </div>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
-                  <Play className="w-6 h-6 mx-auto mb-2 text-pink-400" />
-                  <span className="text-gray-700 dark:text-gray-200 font-medium">유튜브</span>
-                </div>
-                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
-                  <Tv className="w-6 h-6 mx-auto mb-2 text-pink-400" />
-                  <span className="text-gray-700 dark:text-gray-200 font-medium">넷플릭스</span>
-                </div>
-                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
-                  <Film className="w-6 h-6 mx-auto mb-2 text-pink-400" />
-                  <span className="text-gray-700 dark:text-gray-200 font-medium">영화</span>
-                </div>
-                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
-                  <Trophy className="w-6 h-6 mx-auto mb-2 text-pink-400" />
-                  <span className="text-gray-700 dark:text-gray-200 font-medium">탁구</span>
-                </div>
-                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
-                  <Dumbbell className="w-6 h-6 mx-auto mb-2 text-pink-400" />
-                  <span className="text-gray-700 dark:text-gray-200 font-medium">게임</span>
-                </div>
-                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
-                  <Bird className="w-6 h-6 mx-auto mb-2 text-pink-400" />
-                  <span className="text-gray-700 dark:text-gray-200 font-medium">강아지</span>
-                </div>
-                <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
-                  <Globe className="w-6 h-6 mx-auto mb-2 text-pink-400" />
-                  <span className="text-gray-700 dark:text-gray-200 font-medium">일본</span>
-                </div>
+              <div className="grid grid-cols-4 gap-4">
+                {interests.map((item, index) => (
+                  <div key={index} className="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
+                    <span className="text-3xl mb-2">{item.emoji}</span>
+                    <span className="text-gray-700 dark:text-gray-200 font-medium text-sm">{item.label}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
