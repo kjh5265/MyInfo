@@ -6,7 +6,10 @@ import {
   query, 
   orderBy, 
   onSnapshot, 
-  limit
+  limit,
+  deleteDoc,
+  doc,
+  getDocs
 } from 'firebase/firestore';
 import { MessageCircle, Send, X, Trash2, User } from 'lucide-react';
 
@@ -152,12 +155,24 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
     }
   };
 
-  // Clear chat (admin only) - only clear client side
-  const handleClearChat = () => {
+  // Clear chat (admin only) - delete from Firestore
+  const handleClearChat = async () => {
     if (!isAdmin) return;
     
     if (confirm("채팅창을 비우시겠습니까?")) {
-      setComments([]);
+      try {
+        const q = query(collection(db, 'comments', 'food', 'items'));
+        const snapshot = await getDocs(q);
+        
+        // Delete all messages
+        const deletePromises = snapshot.docs.map(doc => deleteDoc(doc.ref));
+        await Promise.all(deletePromises);
+        
+        setComments([]);
+      } catch (error) {
+        console.error('Error clearing chat:', error);
+        alert('채팅 삭제 중 오류가 발생했습니다.');
+      }
     }
   };
 
