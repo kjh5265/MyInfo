@@ -4,6 +4,7 @@ import { useState } from 'react';
 export default function Profile() {
   const [showLikedFood, setShowLikedFood] = useState(false);
   const [showDislikedFood, setShowDislikedFood] = useState(false);
+  const [showDrinks, setShowDrinks] = useState(false);
 
   const interests = [
     { emoji: '📺', label: '유튜브' },
@@ -138,6 +139,18 @@ export default function Profile() {
                   </div>
                   {showDislikedFood && (
                     <p className="text-lg text-gray-800 dark:text-white mt-2">해삼, 멍게류</p>
+                  )}
+                </div>
+                <div 
+                  className="p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/20 cursor-pointer hover:opacity-80 transition-opacity col-span-2"
+                  onClick={() => setShowDrinks(!showDrinks)}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-blue-600 dark:text-blue-400 font-medium">주량</span>
+                    <span className="text-blue-600 dark:text-blue-400">{showDrinks ? '▲' : '▼'}</span>
+                  </div>
+                  {showDrinks && (
+                    <p className="text-lg text-gray-800 dark:text-white mt-2">한병</p>
                   )}
                 </div>
               </div>
