@@ -94,21 +94,24 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
     
     // Send Telegram notification (only for non-admin messages)
     if (!isAdmin) {
-      const TELEGRAM_TOKEN = '8234168902:AAErlAX-JoJxBBLk5SNvkykKgEyb3R4mCY8';
-      const CHAT_ID = '7600441724';
-      const message = `💬 새 메시지!\n\n작성자: ${authorName}\n내용: ${newComment.trim()}`;
+      const TELEGRAM_TOKEN = import.meta.env.VITE_TELEGRAM_TOKEN;
+      const CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID;
       
-      try {
-        await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: CHAT_ID,
-            text: message,
-          })
-        });
-      } catch (error) {
-        console.log('Telegram notification failed:', error);
+      if (TELEGRAM_TOKEN && CHAT_ID) {
+        const message = `💬 새 메시지!\n\n작성자: ${authorName}\n내용: ${newComment.trim()}`;
+        
+        try {
+          await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: CHAT_ID,
+              text: message,
+            })
+          });
+        } catch (error) {
+          console.log('Telegram notification failed:', error);
+        }
       }
     }
     

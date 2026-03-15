@@ -85,6 +85,18 @@ export default {
 
 ## 변경 이력 (Changelog)
 
+### Telegram 알림 설정
+
+**필요한 환경변수 (Vercel에서 설정)**:
+1. `TELEGRAM_TOKEN` - @BotFather에서 발급
+2. `TELEGRAM_CHAT_ID` - @userinfobot에서 확인
+
+**Vercel 설정**:
+1. Dashboard → 프로젝트 → Settings → Environment Variables
+2. 아래 추가:
+   - Key: `VITE_TELEGRAM_TOKEN`, Value: Bot 토큰
+   - Key: `VITE_TELEGRAM_CHAT_ID`, Value: Chat ID
+
 ### 2026-03-15
 - [+] 프로젝트 초기 설정 완료 (Vite + React + Tailwind)
 - [+] 다크모드 토글 기능 추가
