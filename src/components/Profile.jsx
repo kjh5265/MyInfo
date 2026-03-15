@@ -66,7 +66,7 @@ export default function Profile() {
                   <p className="text-xl font-semibold text-gray-800 dark:text-white">95년생</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
-                  <span className="text-sm text-gray-500 dark:text-gray-400">위치</span>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">사는곳</span>
                   <p className="text-xl font-semibold text-gray-800 dark:text-white flex items-center gap-1">
                     <MapPin className="w-4 h-4" />사당
                   </p>
