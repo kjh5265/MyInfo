@@ -137,8 +137,15 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
   // Save nickname
   const handleNicknameSave = (e) => {
     e.preventDefault();
-    if (nicknameInput.trim()) {
-      localStorage.setItem('chatNickname', nicknameInput.trim());
+    const trimmedNickname = nicknameInput.trim();
+    
+    if (trimmedNickname === '재현') {
+      alert("'재현'은 사용할 수 없는 닉네임입니다.");
+      return;
+    }
+    
+    if (trimmedNickname) {
+      localStorage.setItem('chatNickname', trimmedNickname);
       setShowNicknameModal(false);
       setShowChatModal(true);
       setNicknameInput("");
