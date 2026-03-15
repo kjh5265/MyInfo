@@ -29,7 +29,7 @@ export default function Profile() {
           </div>
           
           <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500 bg-clip-text text-transparent mb-4 tracking-tight">
-            나를 소개합니다!
+            반갑습니다! 김재현입니다
           </h1>
           
           {/* Social Links */}
@@ -58,11 +58,7 @@ export default function Profile() {
                 </h2>
               </div>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
-                  <span className="text-sm text-gray-500 dark:text-gray-400">이름</span>
-                  <p className="text-xl font-semibold text-gray-800 dark:text-white">김재현</p>
-                </div>
+              <div className="grid grid-cols-3 gap-4">
                 <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50">
                   <span className="text-sm text-gray-500 dark:text-gray-400">나이</span>
                   <p className="text-xl font-semibold text-gray-800 dark:text-white">95년생</p>
@@ -128,7 +124,7 @@ export default function Profile() {
                     <span className="text-green-600 dark:text-green-400">{showLikedFood ? '▲' : '▼'}</span>
                   </div>
                   {showLikedFood && (
-                    <p className="text-lg text-gray-800 dark:text-white mt-2">고기, 회</p>
+                    <p className="text-lg text-gray-800 dark:text-white mt-2">고기, 회 포함 전부</p>
                   )}
                 </div>
                 <div 
