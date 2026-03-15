@@ -7,6 +7,13 @@ export default function Profile() {
   const [showDrinks, setShowDrinks] = useState(false);
   const [showMbtiModal, setShowMbtiModal] = useState(false);
   const [showDogModal, setShowDogModal] = useState(false);
+  const [profileIndex, setProfileIndex] = useState(0);
+  
+  const profilePhotos = ['/myPic.jpg', '/myProfile2.png'];
+
+  const handleProfileLongPress = () => {
+    setProfileIndex((prev) => (prev + 1) % profilePhotos.length);
+  };
 
   const mbtiTraits = [
     "전략적 사고, 장기적인 시각",
@@ -34,8 +41,12 @@ export default function Profile() {
           <div className="relative inline-block mb-8">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 rounded-full blur-2xl opacity-40 animate-pulse"></div>
             {/* 프로필 사진 */}
-            <div className="relative w-40 h-40 mx-auto rounded-full overflow-hidden shadow-2xl ring-4 ring-white/20 dark:ring-gray-800/50">
-              <img src="/myProfile2.png" alt="프로필" className="w-full h-full object-cover" />
+            <div 
+              className="relative w-40 h-40 mx-auto rounded-full overflow-hidden shadow-2xl ring-4 ring-white/20 dark:ring-gray-800/50 cursor-pointer select-none"
+              onClick={handleProfileLongPress}
+              title="길게 누르면 사진 변경"
+            >
+              <img src={profilePhotos[profileIndex]} alt="프로필" className="w-full h-full object-cover" />
             </div>
           </div>
           
