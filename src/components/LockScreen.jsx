@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Lock } from 'lucide-react';
 
 export default function LockScreen({ onUnlock }) {
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('0315');
   const [error, setError] = useState(false);
 
   const handleSubmit = (e) => {
