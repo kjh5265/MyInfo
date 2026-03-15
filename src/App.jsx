@@ -65,6 +65,7 @@ function App() {
             </svg>
           </button>
         )}
+        <DarkModeToggle />
         {isAdmin && (
           <button
             onClick={handleAdminLogout}
@@ -78,7 +79,6 @@ function App() {
             </svg>
           </button>
         )}
-        <DarkModeToggle />
       </div>
 
       {/* Admin Login Modal */}
