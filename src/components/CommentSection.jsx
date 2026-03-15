@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { db } from '../firebase';
 import { 
   collection, 
@@ -6,40 +6,46 @@ import {
   query, 
   orderBy, 
   onSnapshot, 
-  limit 
+  limit,
+  deleteDoc,
+  doc,
+  getDocs
 } from 'firebase/firestore';
-import { MessageCircle, Send, X } from 'lucide-react';
+import { MessageCircle, Send, X, Trash2, User } from 'lucide-react';
 
-const ADMIN_PASSWORD = "2024";
+const ADMIN_PASSWORD = "5265";
 
-export default function CommentSection() {
+export default function CommentSection({ isAdmin: initialAdmin = false }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-  const [authorName, setAuthorName] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [passwordInput, setPasswordInput] = useState("");
-  const [showCommentModal, setShowCommentModal] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(initialAdmin);
+  const [showChatModal, setShowChatModal] = useState(false);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [showNicknameModal, setShowNicknameModal] = useState(false);
+  const [nicknameInput, setNicknameInput] = useState("");
+  const chatEndRef = useRef(null);
 
-  // Get or create user ID from localStorage
+  // Update isAdmin when prop changes
+  useEffect(() => {
+    setIsAdmin(initialAdmin);
+  }, [initialAdmin]);
+
+  // Get or create user ID and nickname from localStorage
   const getUserId = () => {
-    let userId = localStorage.getItem('commentUserId');
+    let userId = localStorage.getItem('chatUserId');
     if (!userId) {
       userId = 'user_' + Math.random().toString(36).substr(2, 9);
-      localStorage.setItem('commentUserId', userId);
+      localStorage.setItem('chatUserId', userId);
     }
     return userId;
   };
 
-  // Check admin status
-  useEffect(() => {
-    const adminStatus = localStorage.getItem('isAdmin');
-    if (adminStatus === 'true') {
-      setIsAdmin(true);
-    }
-  }, []);
+  const getNickname = () => {
+    return localStorage.getItem('chatNickname') || '';
+  };
 
-  // Get unique author count to determine author name
+  // Get unique author count
   const getAuthorCount = (userId) => {
     const uniqueIds = [...new Set(comments.map(c => c.userId))];
     return uniqueIds.indexOf(userId) + 1;
@@ -49,8 +55,8 @@ export default function CommentSection() {
   useEffect(() => {
     const q = query(
       collection(db, 'comments', 'food', 'items'),
-      orderBy('createdAt', 'desc'),
-      limit(50)
+      orderBy('createdAt', 'asc'),
+      limit(100)
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -59,6 +65,11 @@ export default function CommentSection() {
         ...doc.data()
       }));
       setComments(loadedComments);
+      
+      // Scroll to bottom after loading
+      setTimeout(() => {
+        chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
     });
 
     return () => unsubscribe();
@@ -70,17 +81,23 @@ export default function CommentSection() {
     if (!newComment.trim()) return;
 
     const userId = getUserId();
+    const nickname = getNickname();
     const authorNum = getAuthorCount(userId);
 
     await addDoc(collection(db, 'comments', 'food', 'items'), {
       content: newComment.trim(),
       userId: userId,
-      authorName: isAdmin ? '관리자' : `작성자${authorNum}`,
+      authorName: isAdmin ? '재현' : (nickname || `작성자${authorNum}`),
       isAdmin: isAdmin,
       createdAt: new Date().toISOString()
     });
 
     setNewComment("");
+    
+    // Scroll to bottom after sending
+    setTimeout(() => {
+      chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   };
 
   // Admin login
@@ -96,73 +113,172 @@ export default function CommentSection() {
     }
   };
 
+  // Save nickname
+  const handleNicknameSave = (e) => {
+    e.preventDefault();
+    if (nicknameInput.trim()) {
+      localStorage.setItem('chatNickname', nicknameInput.trim());
+      setShowNicknameModal(false);
+      setNicknameInput("");
+    }
+  };
+
+  // Clear chat (admin only)
+  const handleClearChat = async () => {
+    if (!isAdmin) return;
+    
+    if (confirm("채팅창의 모든 채팅을 삭제하시겠습니까?")) {
+      const q = query(collection(db, 'comments', 'food', 'items'));
+      const snapshot = await getDocs(q);
+      
+      const deletePromises = snapshot.docs.map(doc => 
+        deleteDoc(doc.ref)
+      );
+      
+      await Promise.all(deletePromises);
+    }
+  };
+
+  // Format date/time
+  const formatTime = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const isToday = date.toDateString() === now.toDateString();
+    
+    const hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? '오후' : '오전';
+    const displayHours = hours > 12 ? hours - 12 : (hours === 0 ? 12 : hours);
+    
+    if (isToday) {
+      return `${ampm} ${displayHours}:${minutes}`;
+    } else {
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      return `${month}/${day} ${ampm} ${displayHours}:${minutes}`;
+    }
+  };
+
   return (
     <>
-      {/* Comment Button */}
+      {/* Chat Button */}
       <div className="flex justify-center mt-6">
         <button 
-          onClick={() => setShowCommentModal(true)}
+          onClick={() => {
+            if (!getNickname()) {
+              setShowNicknameModal(true);
+            } else {
+              setShowChatModal(true);
+            }
+          }}
           className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-medium hover:shadow-lg transition-all"
         >
           <MessageCircle className="w-5 h-5" />
-          댓글 보기
+          채팅하기
         </button>
       </div>
 
-      {/* Comment Modal */}
-      {showCommentModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowCommentModal(false)}>
+      {/* Nickname Modal */}
+      {showNicknameModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowNicknameModal(false)}>
+          <div 
+            className="bg-white dark:bg-gray-800 rounded-3xl p-6 w-full max-w-sm relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button 
+              className="absolute top-4 right-4"
+              onClick={() => setShowNicknameModal(false)}
+            >
+              <X className="w-5 h-5 text-gray-500" />
+            </button>
+            <h4 className="text-lg font-bold text-gray-800 dark:text-white mb-4">닉네임 설정</h4>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">채팅에 사용될 닉네임을 입력하세요</p>
+            <form onSubmit={handleNicknameSave}>
+              <input
+                type="text"
+                value={nicknameInput}
+                onChange={(e) => setNicknameInput(e.target.value)}
+                placeholder="닉네임 입력"
+                maxLength={10}
+                className="w-full px-4 py-2 rounded-full border dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 mb-4"
+              />
+              <button 
+                type="submit"
+                className="w-full py-2 bg-purple-500 text-white rounded-full font-medium hover:bg-purple-600 transition-colors"
+              >
+                확인
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Chat Modal */}
+      {showChatModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowChatModal(false)}>
           <div 
             className="bg-white dark:bg-gray-800 rounded-3xl w-full max-w-md h-[70vh] flex flex-col relative"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
-              <h3 className="text-xl font-bold text-gray-800 dark:text-white">댓글</h3>
+              <h3 className="text-xl font-bold text-gray-800 dark:text-white">채팅</h3>
               <div className="flex items-center gap-2">
-                {!isAdmin && (
+                {isAdmin && (
                   <button 
-                    onClick={() => setShowAdminLogin(true)}
-                    className="text-sm text-purple-500 hover:underline"
+                    onClick={handleClearChat}
+                    className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full transition-colors"
+                    title="채팅창 비우기"
                   >
-                    관리자
+                    <Trash2 className="w-5 h-5" />
                   </button>
                 )}
-                <button onClick={() => setShowCommentModal(false)}>
+                <button 
+                  onClick={() => {
+                    setShowChatModal(false);
+                    setShowNicknameModal(true);
+                  }}
+                  className="p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+                  title="닉네임 변경"
+                >
+                  <User className="w-5 h-5" />
+                </button>
+                <button onClick={() => setShowChatModal(false)}>
                   <X className="w-6 h-6 text-gray-500" />
                 </button>
               </div>
             </div>
 
-            {/* Comments List */}
+            {/* Chat List - Latest at bottom, admin on right */}
             <div className="flex-1 overflow-y-auto p-4 space-y-3">
               {comments.length === 0 ? (
                 <p className="text-center text-gray-500 dark:text-gray-400 mt-10">
-                  아직 댓글이 없습니다
+                  아직 채팅이 없습니다
                 </p>
               ) : (
-                comments.slice(0, 5).map((comment) => (
-                  <div 
-                    key={comment.id}
-                    className={`flex ${comment.isAdmin ? 'justify-end' : 'justify-start'}`}
-                  >
+                <>
+                  {comments.map((comment) => (
                     <div 
-                      className={`max-w-[70%] p-3 rounded-2xl ${
-                        comment.isAdmin 
-                          ? 'bg-purple-500 text-white' 
-                          : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white'
-                      }`}
+                      key={comment.id}
+                      className={`flex ${comment.isAdmin ? 'justify-end' : 'justify-start'}`}
                     >
-                      <p className="text-xs font-medium mb-1 opacity-70">{comment.authorName}</p>
-                      <p className="text-sm">{comment.content}</p>
+                      <div 
+                        className={`max-w-[75%] p-3 rounded-2xl ${
+                          comment.isAdmin 
+                            ? 'bg-purple-500 text-white' 
+                            : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white'
+                        }`}
+                      >
+                        <p className="text-xs font-medium mb-1 opacity-70">{comment.authorName}</p>
+                        <p className="text-sm break-words">{comment.content}</p>
+                        <p className={`text-xs mt-1 opacity-50 ${comment.isAdmin ? 'text-right' : ''}`}>
+                          {formatTime(comment.createdAt)}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))
-              )}
-              {comments.length > 5 && (
-                <p className="text-center text-sm text-gray-500">
-                  +{comments.length - 5}개 더보기
-                </p>
+                  ))}
+                  <div ref={chatEndRef} />
+                </>
               )}
             </div>
 
@@ -173,7 +289,7 @@ export default function CommentSection() {
                   type="text"
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
-                  placeholder={isAdmin ? "관리자 댓글 입력..." : "댓글 입력..."}
+                  placeholder={isAdmin ? "재현님 채팅 입력..." : "채팅 입력..."}
                   className="flex-1 px-4 py-2 rounded-full border dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
                 <button 
@@ -223,3 +339,8 @@ export default function CommentSection() {
     </>
   );
 }
+
+// Export function to open admin login from outside
+export const openAdminLogin = () => {
+  window.dispatchEvent(new CustomEvent('openAdminLogin'));
+};

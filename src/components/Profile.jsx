@@ -2,7 +2,7 @@ import { User, MapPin, Heart, Mail, Instagram, Utensils, X } from 'lucide-react'
 import { useState, useRef } from 'react';
 import CommentSection from './CommentSection';
 
-export default function Profile() {
+export default function Profile({ isAdmin = false }) {
   const [showLikedFood, setShowLikedFood] = useState(false);
   const [showDislikedFood, setShowDislikedFood] = useState(false);
   const [showDrinks, setShowDrinks] = useState(false);
@@ -196,7 +196,7 @@ export default function Profile() {
           </div>
 
           {/* Comment Section */}
-          <CommentSection />
+          <CommentSection isAdmin={isAdmin} />
         </div>
 
         {/* MBTI Modal */}
