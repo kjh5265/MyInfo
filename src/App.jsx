@@ -4,7 +4,7 @@ import DarkModeToggle from './components/DarkModeToggle'
 // import LockScreen from './components/LockScreen'
 
 function App() {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(() => localStorage.getItem('isAdmin') === 'true');
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const ADMIN_PASSWORD = "5265";
