@@ -10,7 +10,6 @@ import {
   deleteDoc,
   doc,
   getDocs,
-  where,
   updateDoc
 } from 'firebase/firestore';
 import { MessageCircle, Send, X, Trash2, User } from 'lucide-react';
@@ -57,16 +56,18 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
   useEffect(() => {
     const q = query(
       collection(db, 'comments', 'food', 'items'),
-      where('disabled', '==', false),
       orderBy('createdAt', 'asc'),
       limit(100)
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const loadedComments = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
+      const loadedComments = snapshot.docs
+        .map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }))
+        .filter(comment => comment.disabled !== true); // Filter out disabled comments
+      
       setComments(loadedComments);
       
       // Scroll to bottom after loading
