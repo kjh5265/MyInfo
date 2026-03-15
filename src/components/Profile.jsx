@@ -20,7 +20,7 @@ export default function Profile() {
     { emoji: '🎬', label: '넷플릭스' },
     { emoji: '🎥', label: '영화' },
     { emoji: '💰', label: '재테크' },
-    { emoji: '🏓', label: '탁구' },
+    { emoji: '🏋️', label: '운동' },
     { emoji: '🎮', label: '게임' },
     { emoji: '🐕', label: '강아지' },
     { emoji: '🇯🇵', label: '일본' },
