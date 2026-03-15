@@ -31,6 +31,27 @@ npm run build
 
 ## 트러블슈팅
 
+### DarkModeToggle와 다른 버튼이 겹칠 때
+
+**증상:** DarkModeToggle와 다른 fixed 요소가 겹치거나 배치되지 않음
+
+**원인:** DarkModeToggle 컴포넌트가 자체적으로 `fixed top-4 right-4` 스타일 가지고 있음
+
+**해결:**
+- DarkModeToggle에서 `fixed` 제거
+- 부모 컨테이너에서 flexbox로 배치 관리
+```jsx
+// Bad
+<div className="fixed top-4 right-4">
+  <DarkModeToggle />
+</div>
+
+// Good - DarkModeToggle에서 fixed 제거 후
+<div className="fixed top-4 right-4 flex items-center gap-3">
+  <DarkModeToggle />
+</div>
+```
+
 ### Tailwind CSS가 적용되지 않을 때
 
 **증상:** 디자인이 적용되지 않고 기본 HTML처럼 보임
