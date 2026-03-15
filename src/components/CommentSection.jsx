@@ -285,16 +285,18 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
                     <Trash2 className="w-5 h-5" />
                   </button>
                 )}
-                <button 
-                  onClick={() => {
-                    setShowChatModal(false);
-                    setShowNicknameModal(true);
-                  }}
-                  className="p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
-                  title="닉네임 변경"
-                >
-                  <User className="w-5 h-5" />
-                </button>
+                {!isAdmin && (
+                  <button 
+                    onClick={() => {
+                      setShowChatModal(false);
+                      setShowNicknameModal(true);
+                    }}
+                    className="p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+                    title="닉네임 변경"
+                  >
+                    <User className="w-5 h-5" />
+                  </button>
+                )}
                 <button onClick={() => setShowChatModal(false)}>
                   <X className="w-6 h-6 text-gray-500" />
                 </button>
