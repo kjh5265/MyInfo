@@ -8,20 +8,26 @@ export default function Profile() {
   const [showMbtiModal, setShowMbtiModal] = useState(false);
   const [showDogModal, setShowDogModal] = useState(false);
   const [profileIndex, setProfileIndex] = useState(0);
-  const longPressTimer = useRef(null);
+  const clickCount = useRef(0);
+  const clickTimer = useRef(null);
   
   const profilePhotos = ['/myPic.jpg', '/myProfile2.png'];
 
-  const handleProfilePressStart = () => {
-    longPressTimer.current = setTimeout(() => {
+  const handleProfileClick = () => {
+    clickCount.current += 1;
+    
+    if (clickCount.current === 3) {
       setProfileIndex((prev) => (prev + 1) % profilePhotos.length);
-    }, 3000);
-  };
-
-  const handleProfilePressEnd = () => {
-    if (longPressTimer.current) {
-      clearTimeout(longPressTimer.current);
+      clickCount.current = 0;
     }
+    
+    if (clickTimer.current) {
+      clearTimeout(clickTimer.current);
+    }
+    
+    clickTimer.current = setTimeout(() => {
+      clickCount.current = 0;
+    }, 500);
   };
 
   const mbtiTraits = [
@@ -52,12 +58,8 @@ export default function Profile() {
             {/* 프로필 사진 */}
             <div 
               className="relative w-40 h-40 mx-auto rounded-full overflow-hidden shadow-2xl ring-4 ring-white/20 dark:ring-gray-800/50 select-none"
-              onMouseDown={handleProfilePressStart}
-              onMouseUp={handleProfilePressEnd}
-              onMouseLeave={handleProfilePressEnd}
-              onTouchStart={handleProfilePressStart}
-              onTouchEnd={handleProfilePressEnd}
-              title="3초 이상 누르면 사진 변경"
+              onClick={handleProfileClick}
+              title="3번 눌러서 사진 변경"
             >
               <img src={profilePhotos[profileIndex]} alt="프로필" className="w-full h-full object-cover" />
             </div>
