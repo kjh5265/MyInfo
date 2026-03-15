@@ -1,4 +1,4 @@
-import { User, MapPin, Heart, Mail, ExternalLink, Play, Tv, Film, Trophy, Dumbbell, Utensils } from 'lucide-react';
+import { User, MapPin, Heart, Mail, ExternalLink, Play, Tv, Film, Trophy, Dumbbell, Utensils, Bird, Globe } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Profile() {
@@ -102,11 +102,11 @@ export default function Profile() {
                   <span className="text-gray-700 dark:text-gray-200 font-medium">게임</span>
                 </div>
                 <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
-                  <span className="text-2xl">🐕</span>
+                  <Bird className="w-6 h-6 mx-auto mb-2 text-pink-400" />
                   <span className="text-gray-700 dark:text-gray-200 font-medium">강아지</span>
                 </div>
                 <div className="p-4 text-center rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer">
-                  <span className="text-2xl">🇯🇵</span>
+                  <Globe className="w-6 h-6 mx-auto mb-2 text-pink-400" />
                   <span className="text-gray-700 dark:text-gray-200 font-medium">일본</span>
                 </div>
               </div>
