@@ -48,11 +48,7 @@ function App() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-all duration-500">
       {/* Header with DarkModeToggle and Admin */}
       <div className="fixed top-4 right-4 z-50 flex items-center gap-3">
-        {isAdmin && (
-          <span className="text-sm text-purple-500 font-medium mr-2">
-            재현님 안녕하세요
-          </span>
-        )}
+        {/* Admin Login Button - shown when not admin */}
         {!isAdmin && (
           <button
             onClick={() => setShowAdminLogin(true)}
@@ -65,7 +61,17 @@ function App() {
             </svg>
           </button>
         )}
+        
+        {/* Admin Status - shown when admin */}
+        {isAdmin && (
+          <span className="text-sm text-purple-500 font-medium">
+            재현님 안녕하세요
+          </span>
+        )}
+        
         <DarkModeToggle />
+        
+        {/* Logout Button - shown when admin */}
         {isAdmin && (
           <button
             onClick={handleAdminLogout}
