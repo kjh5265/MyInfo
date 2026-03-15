@@ -10,8 +10,12 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Content is required' });
   }
 
-  const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN || '8234168902:AAErlAX-JoJxBBLk5SNvkykKgEyb3R4mCY8';
-  const CHAT_ID = process.env.TELEGRAM_CHAT_ID || '7600441724';
+  const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
+  const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+
+  if (!TELEGRAM_TOKEN || !CHAT_ID) {
+    return res.status(500).json({ error: 'Telegram configuration missing' });
+  }
 
   const message = `💬 새 메시지!\n\n작성자: ${authorName || '알 수 없음'}\n내용: ${content}`;
 

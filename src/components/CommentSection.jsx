@@ -154,6 +154,36 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
     }
   };
 
+  // Format date for date line (KakaoTalk style)
+  const formatDateLine = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const yesterday = new Date(now);
+    yesterday.setDate(yesterday.getDate() - 1);
+    
+    const dateOnly = date.toDateString();
+    
+    if (dateOnly === now.toDateString()) {
+      return '오늘';
+    } else if (dateOnly === yesterday.toDateString()) {
+      return '어제';
+    } else {
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      return `${year}년 ${month}월 ${day}일`;
+    }
+  };
+
+  // Check if date line is needed (different from previous message)
+  const needsDateLine = (currentComment, index) => {
+    if (index === 0) return true;
+    const prevComment = comments[index - 1];
+    const currentDate = new Date(currentComment.createdAt).toDateString();
+    const prevDate = new Date(prevComment.createdAt).toDateString();
+    return currentDate !== prevDate;
+  };
+
   // Format date/time
   const formatTime = (dateString) => {
     const date = new Date(dateString);
@@ -272,7 +302,7 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
                 </p>
               ) : (
                 <>
-                  {comments.map((comment) => {
+                  {comments.map((comment, index) => {
                     // 내 채팅인지 확인 (userId가 같거나 admin인 경우)
                     const isMyMessage = (comment.userId === getUserId()) || (comment.isAdmin && isAdmin);
                     
@@ -283,10 +313,19 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
                       : !comment.isAdmin; // 사용자: 내 메시지는 오른쪽, 재현 왼쪽
                     
                     return (
-                      <div 
-                        key={comment.id}
-                        className={`flex ${isRight ? 'justify-end' : 'justify-start'}`}
-                      >
+                      <div key={comment.id}>
+                        {/* Date Line - KakaoTalk style */}
+                        {needsDateLine(comment, index) && (
+                          <div className="flex items-center justify-center my-4">
+                            <div className="px-3 py-1 bg-gray-200 dark:bg-gray-600 rounded-full text-xs text-gray-600 dark:text-gray-300">
+                              {formatDateLine(comment.createdAt)}
+                            </div>
+                          </div>
+                        )}
+                        
+                        <div 
+                          className={`flex ${isRight ? 'justify-end' : 'justify-start'}`}
+                        >
                         <div 
                           className={`max-w-[75%] p-3 rounded-2xl ${
                             comment.isAdmin 
