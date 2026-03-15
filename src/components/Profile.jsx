@@ -35,7 +35,7 @@ export default function Profile() {
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 rounded-full blur-2xl opacity-40 animate-pulse"></div>
             {/* 프로필 사진 */}
             <div className="relative w-40 h-40 mx-auto rounded-full overflow-hidden shadow-2xl ring-4 ring-white/20 dark:ring-gray-800/50">
-              <img src="/myPic.jpg" alt="프로필" className="w-full h-full object-cover" />
+              <img src="/myProfile.png" alt="프로필" className="w-full h-full object-cover" />
             </div>
           </div>
           
