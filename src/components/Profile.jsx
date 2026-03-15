@@ -105,7 +105,7 @@ export default function Profile() {
                 {interests.map((item, index) => (
                   <div 
                     key={index} 
-                    className="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer"
+                    className={`flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50 ${item.label === '강아지' ? 'hover:bg-gradient-to-br hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 cursor-pointer' : ''}`}
                     onClick={() => item.label === '강아지' && setShowDogModal(true)}
                   >
                     <span className="text-3xl mb-2">{item.emoji}</span>
