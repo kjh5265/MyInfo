@@ -257,26 +257,37 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
                 </p>
               ) : (
                 <>
-                  {comments.map((comment) => (
-                    <div 
-                      key={comment.id}
-                      className={`flex ${comment.isAdmin ? 'justify-end' : 'justify-start'}`}
-                    >
+                  {comments.map((comment) => {
+                    // 내 채팅인지 확인 (userId가 같거나 admin인 경우)
+                    const isMyMessage = (comment.userId === getUserId()) || (comment.isAdmin && isAdmin);
+                    
+                    // 사용자일 때: 재현(admin) 왼쪽, 다른 사용자들(나 포함) 오른쪽
+                    // 관리자일 때: 재현(admin) 오른쪽, 다른 사용자들 왼쪽
+                    const isRight = isAdmin 
+                      ? comment.isAdmin  // 관리자: 내 메시지는 오른쪽
+                      : !comment.isAdmin; // 사용자: 내 메시지는 오른쪽, 재현 왼쪽
+                    
+                    return (
                       <div 
-                        className={`max-w-[75%] p-3 rounded-2xl ${
-                          comment.isAdmin 
-                            ? 'bg-purple-500 text-white' 
-                            : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white'
-                        }`}
+                        key={comment.id}
+                        className={`flex ${isRight ? 'justify-end' : 'justify-start'}`}
                       >
-                        <p className="text-xs font-medium mb-1 opacity-70">{comment.authorName}</p>
-                        <p className="text-sm break-words">{comment.content}</p>
-                        <p className={`text-xs mt-1 opacity-50 ${comment.isAdmin ? 'text-right' : ''}`}>
-                          {formatTime(comment.createdAt)}
-                        </p>
+                        <div 
+                          className={`max-w-[75%] p-3 rounded-2xl ${
+                            comment.isAdmin 
+                              ? 'bg-purple-500 text-white' 
+                              : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white'
+                          }`}
+                        >
+                          <p className="text-xs font-medium mb-1 opacity-70">{comment.authorName}</p>
+                          <p className="text-sm break-words">{comment.content}</p>
+                          <p className={`text-xs mt-1 opacity-50 ${isRight ? 'text-right' : ''}`}>
+                            {formatTime(comment.createdAt)}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                   <div ref={chatEndRef} />
                 </>
               )}
