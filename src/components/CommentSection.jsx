@@ -281,7 +281,7 @@ export default function CommentSection({ isAdmin: initialAdmin = false }) {
           }}
           className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-medium hover:shadow-lg transition-all"
         >
-          재현과 채팅하기
+          재현과 1:1 채팅하기
         </button>
       </div>
 
